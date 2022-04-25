@@ -52,8 +52,6 @@ This header compiles properly at Wall on Visual Studio, -Wall on gcc, and -Wever
 Please read the leading comments before using the class.
 ---------------------------------------------------------------*/
 #pragma once
-#pragma GCC diagnostic ignored "-Wunused-but-set-parameter"
-
 // It is a bit tricky to sort out what compiler we are actually using,
 // do this once here, and avoid cluttering the code
 #define VISUAL_STUDIO_COMPILER 0
@@ -84,7 +82,7 @@ Please read the leading comments before using the class.
 // Need this for ptrdiff_t on some compilers
 #include <cstddef>
 #include <cstdlib>
-
+#include <boost/core/ignore_unused.hpp>
 #if SAFEINT_COMPILER == VISUAL_STUDIO_COMPILER && defined _M_AMD64
 #include <intrin.h>
 #define SAFEINT_USE_INTRINSICS 1
@@ -1577,6 +1575,8 @@ public:
     template<typename E>
     static void CastThrow(bool b, T& t) SAFEINT_CPP_THROW
     {
+        boost::ignore_unused(b);
+        boost::ignore_unused(t);
         b = !!t;
     }
 };
