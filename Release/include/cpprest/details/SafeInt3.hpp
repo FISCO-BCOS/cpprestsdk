@@ -52,6 +52,7 @@ This header compiles properly at Wall on Visual Studio, -Wall on gcc, and -Wever
 Please read the leading comments before using the class.
 ---------------------------------------------------------------*/
 #pragma once
+#pragma GCC diagnostic ignored "-Wunused-but-set-parameter"
 
 // It is a bit tricky to sort out what compiler we are actually using,
 // do this once here, and avoid cluttering the code
@@ -647,7 +648,7 @@ namespace safeint3
 #if defined SAFEINT_ASSERT_ON_EXCEPTION
 inline void SafeIntExceptionAssert() SAFEINT_NOTHROW { SAFEINT_ASSERT(false); }
 #else
-inline void SafeIntExceptionAssert() SAFEINT_NOTHROW {}
+inline void SafeIntExceptionAssert() SAFEINT_NOTHROW { }
 #endif
 
 #if SAFEINT_COMPILER == GCC_COMPILER || SAFEINT_COMPILER == CLANG_COMPILER
@@ -7062,7 +7063,7 @@ SafeInt<T, E> operator%(U lhs, SafeInt<T, E> rhs) SAFEINT_CPP_THROW
 
 // Multiplication
 template<typename T, typename U, typename E>
-SafeInt<T, E> operator*(U lhs, SafeInt<T, E> rhs)SAFEINT_CPP_THROW
+SafeInt<T, E> operator*(U lhs, SafeInt<T, E> rhs) SAFEINT_CPP_THROW
 {
     T ret(0);
     MultiplicationHelper<T, U, MultiplicationMethod<T, U>::method>::template MultiplyThrow<E>((T)rhs, lhs, ret);
@@ -7448,7 +7449,7 @@ SafeInt<U, E> operator>>(U lhs, SafeInt<T, E> bits) SAFEINT_NOTHROW
 
 // Bitwise &
 template<typename T, typename U, typename E>
-SafeInt<T, E> operator&(U lhs, SafeInt<T, E> rhs)SAFEINT_NOTHROW
+SafeInt<T, E> operator&(U lhs, SafeInt<T, E> rhs) SAFEINT_NOTHROW
 {
     return SafeInt<T, E>(BinaryAndHelper<T, U, BinaryMethod<T, U>::method>::And((T)rhs, lhs));
 }
