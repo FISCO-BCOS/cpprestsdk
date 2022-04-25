@@ -1,7 +1,9 @@
 project(casablanca-ios NONE)
 cmake_minimum_required(VERSION 3.9)
 
-enable_testing()
+if(TESTS)
+    enable_testing()
+endif()
 
 set(LIB_CPPREST libcpprest.a)
 set(LIB_CPPREST_LIB_DIR "${CMAKE_CURRENT_BINARY_DIR}/lib")
