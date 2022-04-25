@@ -59,10 +59,17 @@ else()
   set(Boost_USE_STATIC_LIBS OFF CACHE BOOL "Link against boost statically.")
 endif()
 
-include(cmake/cpprest_find_boost.cmake)
-include(cmake/cpprest_find_zlib.cmake)
-include(cmake/cpprest_find_winhttppal.cmake)
+
+hunter_add_package(Boost COMPONENTS all)
+hunter_add_package(OpenSSL)
+find_package(OpenSSL REQUIRED)
+hunter_add_package(ZLIB)
+
 include(cmake/cpprest_find_openssl.cmake)
+
+include(cmake/cpprest_find_zlib.cmake)
+include(cmake/cpprest_find_boost.cmake)
+include(cmake/cpprest_find_winhttppal.cmake)
 include(cmake/cpprest_find_websocketpp.cmake)
 include(cmake/cpprest_find_brotli.cmake)
 include(CheckIncludeFiles)
